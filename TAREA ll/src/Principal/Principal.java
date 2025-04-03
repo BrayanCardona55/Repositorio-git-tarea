@@ -214,6 +214,11 @@ public final class Principal extends javax.swing.JFrame {
         jMenu1.add(jMenuItem1);
 
         mniCrearUsuario.setText("Crear usuario");
+        mniCrearUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniCrearUsuarioActionPerformed(evt);
+            }
+        });
         jMenu1.add(mniCrearUsuario);
 
         jMenuBar1.add(jMenu1);
@@ -274,6 +279,13 @@ public final class Principal extends javax.swing.JFrame {
         habitacion.setVisible(true);  // Hace visible el jframe
         dispose();  // cierra el jframe
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void mniCrearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCrearUsuarioActionPerformed
+        
+         Crearusuario ventana = new Crearusuario(this, true); // 'true' lo hace modal
+    ventana.setVisible(true);
+        dispose();  // cierra el jframe
+    }//GEN-LAST:event_mniCrearUsuarioActionPerformed
 
     /**
      * @param args the command line arguments
