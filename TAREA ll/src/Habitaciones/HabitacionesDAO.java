@@ -16,7 +16,7 @@ public class HabitacionesDAO {
     }
 
 
- // Método para obtener los valores posibles del ENUM 'estado'
+ // Metodo para obtener los valores posibles del ENUM eestado
     public List<String> obtenerEstados() {
         List<String> estados = new ArrayList<>();
         Connection conn = null;
@@ -27,7 +27,7 @@ public class HabitacionesDAO {
             if (conexionBD.conectar()) {
                 conn = conexionBD.getConexion();
                 
-                // Consulta para obtener los valores posibles del ENUM 'estado'
+                // Consulta para obtener los valores posibles del  estado
                 String query = "SHOW COLUMNS FROM habitaciones LIKE 'estado'";
                 stmt = conn.prepareStatement(query);
                 rs = stmt.executeQuery();
@@ -38,7 +38,7 @@ public class HabitacionesDAO {
                     enumValues = enumValues.substring(enumValues.indexOf('(') + 1, enumValues.indexOf(')'));
                     String[] valores = enumValues.split(",");
                     for (String valor : valores) {
-                        estados.add(valor.replace("'", "").trim()); // Limpiar y agregar a la lista
+                        estados.add(valor.replace("'", "").trim()); // Limpia y agrega a la lista
                     }
                 }
             }
@@ -56,14 +56,14 @@ public class HabitacionesDAO {
         return estados;
     }
     public boolean agregarHabitacion(HabitacionesModelo habitacion) {
-        // Obtiene la conexión de la clase ConexionBD
+        // Obtiene la conexion de la clase ConexionBD
         
         if (!conexionBD.conectar()) {
             System.out.println("Error: No se pudo establecer la conexión.");
             return false;
         }
 
-        // Obtener la conexión después de que se haya establecido correctamente
+        // Obtener la conexion despues de que se halla establecido correctamente
         Connection conn = conexionBD.getConexion();
         if (conn == null) {
             System.out.println("Error: la conexión no está establecida.");
@@ -71,32 +71,32 @@ public class HabitacionesDAO {
         }
 
         try {
-            // Sentencia SQL para insertar la habitación
+            // Sentencia sql para insertar la habitación
             String sql = "INSERT INTO habitaciones (nombre, tipo, precio, estado) VALUES (?, ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sql);
 
-            // Establecer los parámetros en el PreparedStatement
+            // Establecer los parametros en el PreparedStatement
             stmt.setString(1, habitacion.getNombre());
             stmt.setString(2, habitacion.getTipo());
             stmt.setDouble(3, habitacion.getPrecio());
             stmt.setString(4, habitacion.getEstado());
 
-            // Ejecutar la sentencia SQL
+            // Ejecutar la sentencia sql
             int filas = stmt.executeUpdate();
 
             // Verificar si se agregaron filas correctamente
             return filas > 0; // Se agregó la habitación correctamente
+            
             // No se pudo agregar la habitación
-
         } catch (SQLException e) {
-            System.out.println("Error al agregar la habitación: " + e.getMessage());
+            System.out.println("Error al agregar la habitacion: " + e.getMessage());
             return false;
         } finally {
-            // Cerrar la conexión después de realizar la operación
+            // Cerrar la conexion después de realizar la operacion
             conexionBD.cerrarConexion();
         }
     }
-// Método para eliminar una habitación por ID
+// Metodo para eliminar una habitacion por id
     public boolean eliminarHabitacion(int id) {
         if (!conexionBD.conectar()) {
             System.out.println("No se pudo establecer conexión con la base de datos.");
@@ -115,13 +115,13 @@ public class HabitacionesDAO {
             System.out.println("Error al eliminar la habitación: " + e.getMessage());
             return false;
         } finally {
-            conexionBD.cerrarConexion(); // Cierra la conexión después de la operación
+            conexionBD.cerrarConexion(); // Cierra la conexion despues de la operacion
         }
     }
     
     public boolean actualizarHabitacion(HabitacionesModelo habitacion) {
         if (!conexionBD.conectar()) {
-            System.err.println("Error de conexión");
+            System.err.println("Error de conexion");
             return false;
         }
 
@@ -138,7 +138,7 @@ public class HabitacionesDAO {
 
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
-            System.err.println("Error al actualizar habitación: " + e.getMessage());
+            System.err.println("Error al actualizar habitacion: " + e.getMessage());
             return false;
         } finally {
             conexionBD.cerrarConexion();

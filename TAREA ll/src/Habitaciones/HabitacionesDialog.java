@@ -13,17 +13,17 @@ public class HabitacionesDialog extends javax.swing.JDialog {
      private final HabitacionesDAO habitacionDAO;
 
     public HabitacionesDialog(JFrame parent) {
-        super(parent, "Gestión de Habitaciones", true);
+        super(parent, "Gestion de Habitaciones", true);
         initComponents();
  HabitacionVista habitacionVista = new HabitacionVista();
 habitacionVista.cargarEstadosEnComboBox(cbxestado);
   habitacionDAO = new HabitacionesDAO(); // Inicializar el DAO
 
 }
-   // Método para cargar los datos en los campos
+   // Metodo para cargar los datos en los campos
 public void cargarDatos(String codigo, String nombre, String tipo, String precio, String estado) {
-    // Asignar el código al campo de texto correspondiente
-    lblcodigo.setText(codigo);  // Asegúrate de tener un campo de texto para el código
+    // Asignar el codigo al campo de texto correspondiente
+    lblcodigo.setText(codigo);  // Asegurate de tener un campo de texto para el codigo
 
     // Asignar los otros valores a los campos correspondientes
     txtnombre.setText(nombre);
@@ -242,7 +242,7 @@ public void cargarDatos(String codigo, String nombre, String tipo, String precio
     private void txtTipoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTipoKeyReleased
   String text = txtTipo.getText().trim();
 
-    // Si el campo está vacío, ocultamos el popup
+    // Si el campo esta vacío, ocultamos el popup
     if (text.isEmpty()) {
         ppmtipo.setVisible(false);
         return;
@@ -257,7 +257,7 @@ public void cargarDatos(String codigo, String nombre, String tipo, String precio
             JMenuItem item = new JMenuItem(tipo);
             item.addActionListener(e -> {
                 txtTipo.setText(tipo);  // Coloca el tipo seleccionado en el campo de texto
-                ppmtipo.setVisible(false);  // Oculta el popup después de seleccionar
+                ppmtipo.setVisible(false);  // Oculta el popup despues de seleccionar
             });
             ppmtipo.add(item);  // Añadir el item al popup
         }
@@ -286,17 +286,17 @@ public void cargarDatos(String codigo, String nombre, String tipo, String precio
     private void txtTipoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTipoFocusLost
      String text = txtTipo.getText().trim();
     
-    // Lista de opciones válidas (debe ser una lista global para que se mantenga)
+    // Lista de opciones validas debe ser una lista global para que se mantenga
     if (!tiposHabitacion.contains(text) && !text.isEmpty()) {
         tiposHabitacion.add(text);  // Agregar el nuevo tipo si no existe en la lista
     }
     }//GEN-LAST:event_txtTipoFocusLost
 
     private void btteditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btteditarActionPerformed
-       // 1. Validar que haya un código de habitación seleccionado
+       // 1. Validar que halla un codigo de habitacion seleccionado
     String codigoTexto = lblcodigo.getText().trim();
     if (codigoTexto.isEmpty() || codigoTexto.equals("---")) {
-        JOptionPane.showMessageDialog(this, "No hay una habitación seleccionada para editar.", 
+        JOptionPane.showMessageDialog(this, "No hay una habitacion seleccionada para editar.", 
             "Error", JOptionPane.WARNING_MESSAGE);
         return;
     }
@@ -307,14 +307,14 @@ public void cargarDatos(String codigo, String nombre, String tipo, String precio
     String precioTexto = txtprecio.getText().trim();
     String estado = (String) cbxestado.getSelectedItem();
 
-    // 3. Validar que los campos no estén vacíos y que el precio sea válido
+    // 3. Validar que los campos no estén vacios y que el precio sea valido
     if (nombre.isEmpty() || tipo.isEmpty() || precioTexto.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Nombre, Tipo y Precio son campos obligatorios.", 
             "Error", JOptionPane.WARNING_MESSAGE);
         return;
     }
 
-    // 4. Validar formato del precio
+    // 4. Valida formato del precio
     double precio;
     try {
         precio = Double.parseDouble(precioTexto);
@@ -324,12 +324,12 @@ public void cargarDatos(String codigo, String nombre, String tipo, String precio
             return;
         }
     } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "El precio debe ser un número válido.", 
+        JOptionPane.showMessageDialog(this, "El precio debe ser un numero válido.", 
             "Error", JOptionPane.WARNING_MESSAGE);
         return;
     }
 
-    // 5. Crear el objeto HabitacionesModelo con los datos actualizados
+    // 5. Crea el objeto HabitacionesModelo con los datos actualizados
     HabitacionesModelo habitacion = new HabitacionesModelo();
     habitacion.setId(Integer.parseInt(codigoTexto));
     habitacion.setNombre(nombre);
@@ -337,17 +337,17 @@ public void cargarDatos(String codigo, String nombre, String tipo, String precio
     habitacion.setPrecio(precio);
     habitacion.setEstado(estado);
 
-    // 6. Validar que la habitación sea válida
+    // 6. Valida que la habitación sea valida
     if (!habitacion.esValido()) {
         JOptionPane.showMessageDialog(this, "Los datos de la habitación no son válidos.", 
             "Error", JOptionPane.WARNING_MESSAGE);
         return;
     }
 
-    // 7. Confirmar la edición
+    // 7. Confirma la edicion
     int confirmacion = JOptionPane.showConfirmDialog(this, 
-        "¿Está seguro que desea actualizar esta habitación?", 
-        "Confirmar actualización", JOptionPane.YES_NO_OPTION);
+        "¿Está seguro que desea actualizar esta habitacion?", 
+        "Confirmar actualizacion", JOptionPane.YES_NO_OPTION);
     
     if (confirmacion != JOptionPane.YES_OPTION) {
         return;
@@ -356,7 +356,7 @@ public void cargarDatos(String codigo, String nombre, String tipo, String precio
     // 8. Llamar al DAO para actualizar
     boolean exito = habitacionDAO.actualizarHabitacion(habitacion);
     if (exito) {
-        JOptionPane.showMessageDialog(this, "Habitación actualizada correctamente.",
+        JOptionPane.showMessageDialog(this, "Habitacion actualizada correctamente.",
                 "Éxito", JOptionPane.INFORMATION_MESSAGE);
         
         // Cerrar el diálogo
@@ -377,22 +377,22 @@ public void cargarDatos(String codigo, String nombre, String tipo, String precio
 
     private void bttagregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttagregarActionPerformed
      // Obtener los valores de los campos del formulario
-    String nombre = txtnombre.getText();  // Cambia 'txtnombre' por el nombre de tu campo de texto
-    String tipo = txtTipo.getText();      // Cambia 'txtTipo' por el nombre de tu campo de texto
+    String nombre = txtnombre.getText();  
+    String tipo = txtTipo.getText();      
     double precio;
     
     try {
-        precio = Double.parseDouble(txtprecio.getText());  // Cambia 'txtprecio' por el nombre de tu campo de texto
+        precio = Double.parseDouble(txtprecio.getText());  
         if (precio <= 0) {
-            JOptionPane.showMessageDialog(this, "El precio debe ser un número mayor que cero.");
+            JOptionPane.showMessageDialog(this, "El precio debe ser un numero mayor que cero.");
             return;
         }
     } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "El precio debe ser un número válido.");
+        JOptionPane.showMessageDialog(this, "El precio debe ser un numero valido.");
         return;
     }
 
-    String estado = (String) cbxestado.getSelectedItem();  // Cambia 'cbxestado' por tu JComboBox
+    String estado = (String) cbxestado.getSelectedItem();  
     
     // Validación básica
     if (nombre.isEmpty() || tipo.isEmpty() || estado == null) {
@@ -400,24 +400,23 @@ public void cargarDatos(String codigo, String nombre, String tipo, String precio
         return;
     }
 
-    // Crear el modelo de habitación con los datos obtenidos
+    // Crea el modelo de habitaciin con los datos obtenidos
     HabitacionesModelo habitacion = new HabitacionesModelo(nombre, tipo, precio, estado);
 
   
-    boolean exito = habitacionDAO.agregarHabitacion(habitacion);  // Asume que tienes un método 'agregarHabitacion' en tu DAO
-
+    boolean exito = habitacionDAO.agregarHabitacion(habitacion); 
     if (exito) {
-        JOptionPane.showMessageDialog(this, "Habitación agregada correctamente.");
+        JOptionPane.showMessageDialog(this, "Habitacion agregada correctamente.");
         
-        // Limpiar los campos después de agregar
+        // Limpia los campos despues de agregar
         txtnombre.setText("");
         txtTipo.setText("");
         txtprecio.setText("");
         cbxestado.setSelectedIndex(0);  // Resetea el JComboBox al primer valor
 
-        this.dispose();  // Cerrar el diálogo
+        this.dispose();  // Cierra el dialogo
     } else {
-        JOptionPane.showMessageDialog(this, "Error al agregar la habitación.");
+        JOptionPane.showMessageDialog(this, "Error al agregar la habitacion.");
     }
     }//GEN-LAST:event_bttagregarActionPerformed
 
@@ -426,33 +425,33 @@ public void cargarDatos(String codigo, String nombre, String tipo, String precio
         String codigoTexto = lblcodigo.getText().trim(); // El código debe estar en un campo como lblcodigo
         
         if (codigoTexto.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ingrese un código para eliminar.");
+            JOptionPane.showMessageDialog(this, "Ingrese un codigo para eliminar.");
             return;
         }
 
-        // Convertir a número entero el código de la habitación
+        // Convertir a numero entero el código de la habitación
         int id;
         try {
             id = Integer.parseInt(codigoTexto); // Intentamos convertir el código a número entero
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Código inválido. Debe ser un número.");
+            JOptionPane.showMessageDialog(this, "Código inválido. Debe ser un numero.");
             return;
         }
 
-        // Confirmar la eliminación
+        // Confirmar la eliminacion
         int confirmacion = JOptionPane.showConfirmDialog(this, 
-            "¿Está seguro de eliminar esta habitación?", "Confirmar eliminación", 
+            "¿Está seguro de eliminar esta habitacion?", "Confirmar eliminacion", 
             JOptionPane.YES_NO_OPTION);
         
         if (confirmacion == JOptionPane.YES_OPTION) {
-            // Llamar al método de eliminar en HabitacionesDAO
+            // Llamar al metodo de eliminar en HabitacionesDAO
             boolean eliminado = habitacionDAO.eliminarHabitacion(id);
             if (eliminado) {
-                JOptionPane.showMessageDialog(this, "Habitación eliminada con éxito.");
+                JOptionPane.showMessageDialog(this, "Habitacion eliminada con exito.");
              
                 dispose();
             } else {
-                JOptionPane.showMessageDialog(this, "No se encontró la habitación con ese código.");
+                JOptionPane.showMessageDialog(this, "No se encontro la habitacion con ese codigo.");
             }
         }
     }//GEN-LAST:event_btteliminarActionPerformed

@@ -10,9 +10,9 @@ public class SesionUsuarios {
     // Método para obtener la instancia única de la clase (Singleton)
     public static SesionUsuarios getInstancia() {
         if (instancia == null) {
-            instancia = new SesionUsuarios();
-        }
-        return instancia;
+    instancia = new SesionUsuarios();  // Crea una nueva instancia si no existe
+}
+return instancia;  // Devuelve la instancia
     }
 
     // Método para iniciar sesión, guardando el usuario y rol
@@ -21,7 +21,7 @@ public class SesionUsuarios {
         this.rol = rol;
     }
 
-    // Métodos para obtener el usuario y rol
+    // Metodos para obtener el usuario y rol
     public String getUsuario() {
         return usuario;
     }
@@ -30,7 +30,7 @@ public class SesionUsuarios {
         return rol;
     }
 
-    // Métodos para establecer el usuario y rol (si es necesario)
+    // Metodos para establecer el usuario y rol 
     public void setUsuario(String usuario) {
         this.usuario = usuario;
     }

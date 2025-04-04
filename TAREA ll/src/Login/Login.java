@@ -17,12 +17,12 @@ public class Login extends javax.swing.JFrame {
 
     public Login() {
         initComponents();
-       // Establece el tamaño del jframe
-         setSize(456, 344);
-         //Cierra la aplicacion totalmente al cerrar la ventana
-         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-         //Centra la ventana en la pantalla
-        setLocationRelativeTo(null);
+    // se ajusta el tamaño de la ventana
+    setSize(456, 344);
+    // cuando se cierra la ventana se cierra toda la aplicacion
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    // pone la ventana en el centro de la pantalla
+    setLocationRelativeTo(null);
 
     }
 
@@ -88,13 +88,10 @@ public class Login extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtcontrasena)
@@ -107,9 +104,9 @@ public class Login extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtusuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtusuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtcontrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -123,82 +120,82 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bttentrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttentrarActionPerformed
- String usuario = txtusuario.getText();
-    char[] contrasena = txtcontrasena.getPassword();  
-    String contrasenaString = new String(contrasena);
+String usuario = txtusuario.getText();  
+char[] contrasena = txtcontrasena.getPassword();  
+String contrasenaString = new String(contrasena);
 
-    // Verificar si el usuario o la contraseña están vacíos
-    if (usuario.isEmpty() || contrasenaString.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Por favor ingrese usuario y contraseña.");
-        return;
-    }
+// Verifica si el usuario o la contraseña estan vacios
+if (usuario.isEmpty() || contrasenaString.isEmpty()) {
+    JOptionPane.showMessageDialog(this, "Por favor ingrese usuario y contraseña.");
+    return;
+}
 
-    // Consulta para verificar la contraseña
-    String query = "SELECT password_hash, rol FROM usuarios WHERE username = ?";
+// Consulta para verificar la contraseña
+String query = "SELECT password_hash, rol FROM usuarios WHERE username = ?";
 
-    try {
-        // Crear instancia de la clase ConexionBD
-        ConexionBD conexionBD = new ConexionBD();
+try {
+    // Crea instancia de la clase ConexionBD
+    ConexionBD conexionBD = new ConexionBD();
 
-        // Intentar conectar a la base de datos
-        if (conexionBD.conectar()) {
-            Connection conn = conexionBD.getConexion();
+    // Intenta conectar a la base de datos
+    if (conexionBD.conectar()) {
+        Connection conn = conexionBD.getConexion();
 
-            // Verificar si la conexión es nula
-            if (conn == null) {
-                JOptionPane.showMessageDialog(this, "Error: No se pudo conectar a la base de datos.");
-                return;
-            }
-
-            // Preparar la consulta SQL
-            PreparedStatement pst = conn.prepareStatement(query);
-            pst.setString(1, usuario);
-
-            // Ejecutar la consulta
-            ResultSet rs = pst.executeQuery();
-
-            // Verificar si se encontró el usuario
-            if (rs.next()) {
-                String passwordHash = rs.getString("password_hash");
-                String rol = rs.getString("rol");  // Obtener el rol del usuario
-
-                // Imprimir el hash de la base de datos y la contraseña ingresada para depuración
-                System.out.println("Hash en BD: " + passwordHash);
-                System.out.println("Contraseña ingresada: " + contrasenaString);
-
-                // Verificar la contraseña usando BCrypt
-                if (BCrypt.checkpw(contrasenaString, passwordHash)) {
-                    // Iniciar sesión guardando el usuario y el rol
-                    SesionUsuarios.getInstancia().iniciarSesion(usuario, rol);
-
-                    // Mostrar mensaje de bienvenida
-                    JOptionPane.showMessageDialog(this, "¡Bienvenido!");
-
-                    // Abre la ventana principal
-                    Principal principal = new Principal();
-                    principal.setVisible(true);
-
-                    // Cerrar la ventana de login
-                    this.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Contraseña incorrecta.");
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "Usuario no encontrado.");
-            }
-
-            // Cerrar recursos
-            rs.close();
-            pst.close();
-            conn.close();
-        } else {
-            JOptionPane.showMessageDialog(this, "Error al conectar con la base de datos.");
+        // Verifica si la conexion es nula
+        if (conn == null) {
+            JOptionPane.showMessageDialog(this, "Error: No se pudo conectar a la base de datos.");
+            return;
         }
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(this, "Error al ejecutar la consulta: " + e.getMessage());
-    } catch (HeadlessException e) {
-        JOptionPane.showMessageDialog(this, "Error inesperado: " + e.getMessage());
+
+        // Prepara la consulta SQL
+        PreparedStatement pst = conn.prepareStatement(query);
+        pst.setString(1, usuario);
+
+        // Ejecuta la consulta
+        ResultSet rs = pst.executeQuery();
+
+        // Verifica si se encontro el usuario
+        if (rs.next()) {
+            String passwordHash = rs.getString("password_hash");
+            String rol = rs.getString("rol");  // Obtiene el rol del usuario
+
+            // Imprime el hash de la base de datos y la contraseña ingresada para depuracion
+            System.out.println("Hash en BD: " + passwordHash);
+            System.out.println("Contraseña ingresada: " + contrasenaString);
+
+            // Verifica la contraseña usando BCrypt
+            if (BCrypt.checkpw(contrasenaString, passwordHash)) {
+                // Inicia sesion guardando el usuario y el rol
+                SesionUsuarios.getInstancia().iniciarSesion(usuario, rol);
+
+                // Muestra mensaje de bienvenida
+                JOptionPane.showMessageDialog(this, "¡Bienvenido!");
+
+                // Abre la ventana principal
+                Principal principal = new Principal();
+                principal.setVisible(true);
+
+                // Cierra la ventana de login
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Contraseña incorrecta.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Usuario no encontrado.");
+        }
+
+        // Cierra recursos
+        rs.close();
+        pst.close();
+        conn.close();
+    } else {
+        JOptionPane.showMessageDialog(this, "Error al conectar con la base de datos.");
     }
+} catch (SQLException e) {
+    JOptionPane.showMessageDialog(this, "Error al ejecutar la consulta: " + e.getMessage());
+} catch (HeadlessException e) {
+    JOptionPane.showMessageDialog(this, "Error inesperado: " + e.getMessage());
+}
     }//GEN-LAST:event_bttentrarActionPerformed
 
     public static void main(String args[]) {

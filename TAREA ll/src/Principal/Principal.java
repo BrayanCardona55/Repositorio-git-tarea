@@ -37,7 +37,7 @@ public final class Principal extends javax.swing.JFrame {
 
         // Restringir botones según el rol
         if (rol.equals("recepcionista")) {
-            bttreserva.setEnabled(false);  // Suponiendo que tienes un botón llamado btnAdministrarUsuarios
+            btthabitacion.setEnabled(false);  // Suponiendo que tienes un botón llamado btnAdministrarUsuarios
             mniCrearUsuario.setEnabled(false);
         }
     
@@ -120,8 +120,9 @@ public final class Principal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btthuesped = new javax.swing.JButton();
         bttreserva = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btthabitacion = new javax.swing.JButton();
         lblusuario = new javax.swing.JLabel();
+        bttactualizar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -166,13 +167,13 @@ public final class Principal extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(java.awt.SystemColor.textHighlight);
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Ingresar Habitacion");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btthabitacion.setBackground(java.awt.SystemColor.textHighlight);
+        btthabitacion.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btthabitacion.setForeground(new java.awt.Color(255, 255, 255));
+        btthabitacion.setText("Ingresar Habitacion");
+        btthabitacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btthabitacionActionPerformed(evt);
             }
         });
 
@@ -186,7 +187,7 @@ public final class Principal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(bttreserva, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btthabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -195,13 +196,23 @@ public final class Principal extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btthuesped, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btthabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bttreserva, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(7, Short.MAX_VALUE))
         );
 
         lblusuario.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         lblusuario.setText("---");
+
+        bttactualizar.setBackground(java.awt.SystemColor.textHighlight);
+        bttactualizar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        bttactualizar.setForeground(new java.awt.Color(255, 255, 255));
+        bttactualizar.setText("Actualizar");
+        bttactualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bttactualizarActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("Menu");
 
@@ -229,27 +240,30 @@ public final class Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 766, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 604, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(bttactualizar)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblusuario)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblusuario)
+                    .addComponent(bttactualizar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
         );
 
         pack();
@@ -273,12 +287,12 @@ public final class Principal extends javax.swing.JFrame {
                 System.exit(0);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btthabitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btthabitacionActionPerformed
          // Crea y mostra el jframe principal
         Habitaciones habitacion = new Habitaciones();  
         habitacion.setVisible(true);  // Hace visible el jframe
         dispose();  // cierra el jframe
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btthabitacionActionPerformed
 
     private void mniCrearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCrearUsuarioActionPerformed
         
@@ -286,6 +300,10 @@ public final class Principal extends javax.swing.JFrame {
     ventana.setVisible(true);
         dispose();  // cierra el jframe
     }//GEN-LAST:event_mniCrearUsuarioActionPerformed
+
+    private void bttactualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttactualizarActionPerformed
+        cargarTablaInicio();
+    }//GEN-LAST:event_bttactualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -323,9 +341,10 @@ public final class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bttactualizar;
+    private javax.swing.JButton btthabitacion;
     private javax.swing.JButton btthuesped;
     private javax.swing.JButton bttreserva;
-    private javax.swing.JButton jButton1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;

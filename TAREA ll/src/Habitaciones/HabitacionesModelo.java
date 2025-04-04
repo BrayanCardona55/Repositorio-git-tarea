@@ -6,7 +6,7 @@ public class HabitacionesModelo {
     private double precio;
     private String estado;
 
-    // Constructor con ID (para casos donde ya existe en la BD)
+    // Constructor con id para casos donde ya existe en la BD
     public HabitacionesModelo(int id, String nombre, String tipo, double precio, String estado) {
         this.id = id;
         this.nombre = nombre != null ? nombre : "";
@@ -15,26 +15,26 @@ public class HabitacionesModelo {
         this.estado = estado != null ? estado : "Disponible";  // Valor predeterminado
     }
 
-    // Constructor sin ID (para nuevos registros)
+    // Constructor sin id para nuevos registros
     public HabitacionesModelo(String nombre, String tipo, double precio, String estado) {
-        this(0, nombre, tipo, precio, estado); // Llama al constructor con ID y pasa 0 como ID
+        this(0, nombre, tipo, precio, estado); 
     }
 
-    // Constructor vacío (para instanciar sin datos iniciales)
+    // Constructor vacio para instanciar sin datos iniciales
     public HabitacionesModelo() {
         this.id = 0;
         this.nombre = "";
         this.tipo = "";
         this.precio = 0.0;
-        this.estado = "Disponible";  // Estado por defecto
+        this.estado = "Disponible"; 
     }
 
-    // Validación de datos
+    // Validacion de datos
     public boolean esValido() {
         return !nombre.isEmpty() && !tipo.isEmpty() && precio > 0 && esEstadoValido();
     }
 
-    // Método para validar si el estado es válido
+    // Metodo para validar si el estado es valido
     private boolean esEstadoValido() {
         return estado.equals("Disponible") || estado.equals("Ocupada") || estado.equals("Mantenimiento");
     }
@@ -82,7 +82,7 @@ public class HabitacionesModelo {
         }
     }
 
-    // Método toString para depuración
+    // Metodo toString para depuracion
     @Override
     public String toString() {
         return "HabitacionesModelo{" +

@@ -43,7 +43,7 @@ public void cargarDatos() {
                 Connection con = conexionBD.getConexion();
                 String consulta = "SELECT * FROM habitaciones";
 
-                try ( // Asegurar que se usa el Statement correcto
+                try ( // Asegura que se usa el Statement correcto
                         java.sql.Statement st = con.createStatement(); 
                         ResultSet rs = st.executeQuery(consulta)) {
                     
@@ -202,7 +202,7 @@ public void cargarDatos() {
             String estado = TablaHabitacion.getValueAt(row, 4).toString();
 
             // Formatear el código con ceros a la izquierda
-            String codigoFormateado = String.format("%05d", codigo);  // Asegurándonos de que el código tiene 5 dígitos
+            String codigoFormateado = String.format("%05d", codigo);  // Asegurandonos de que el codigo tiene 5 digitos
 
             java.awt.Frame parentFrame = (java.awt.Frame) SwingUtilities.getWindowAncestor(this);
 
@@ -210,7 +210,7 @@ public void cargarDatos() {
 HabitacionesDialog dialog = new HabitacionesDialog((JFrame) parentFrame); // Convertimos a JFrame
 
 
-            // Llamar al método cargarDatos del JDialog, pasando el código formateado
+            // Llamar al metodo cargarDatos del JDialog, pasando el codigo formateado
             dialog.cargarDatos(codigoFormateado, nombre, tipo, precio, estado);
 dialog.setVisible(true);
         } else {
@@ -219,11 +219,11 @@ dialog.setVisible(true);
     }//GEN-LAST:event_bttprocesar4ActionPerformed
 
     private void bttbuscar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttbuscar4ActionPerformed
-       String criterio = txtbusqueda.getText().trim();  // Obtener el texto del campo de búsqueda
+       String criterio = txtbusqueda.getText().trim();  // Obtener el texto del campo de busqueda
     
     // Verificar que no esté vacío
     if (criterio.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Por favor, ingrese un código, nombre o tipo para buscar.");
+        JOptionPane.showMessageDialog(this, "Por favor, ingrese un codigo, nombre o tipo para buscar.");
         return;
     }
 
@@ -244,19 +244,19 @@ dialog.setVisible(true);
 
         String query = "";
 
-        // Si el criterio es un número, buscar por 'id', si es texto, buscar por 'nombre' o 'tipo'
+        // Si el criterio es un numero, buscar por id si es texto, buscar por nombre o tipo
         if (criterio.matches("\\d+")) { 
-            // Si el criterio es un número, buscar por 'id' exacto
+            // Si el criterio es un numero, buscar por id exacto
             query = "SELECT * FROM habitaciones WHERE id = ?"; 
         } else {  
-            // Si el criterio es texto, buscar por 'nombre' o 'tipo' (usando LIKE para coincidencias parciales)
-            query = "SELECT * FROM habitaciones WHERE nombre LIKE ? OR tipo LIKE ?"; 
+            // Si el criterio es texto buscar por nombre o tipo usando LIKE para coincidencias parcia
+            query = "SELECT * FROM habitaciones WHERE nombre LIKE ? OR tipo LIKE ?";
         }
 
         try {
             pst = conn.prepareStatement(query);
             
-            // Establecer los parámetros de la consulta
+            // Establecer los parametros de la consulta
             if (criterio.matches("\\d+")) {
                 pst.setInt(1, Integer.parseInt(criterio));  // Si es numérico, buscar por 'id'
             } else {
