@@ -33,7 +33,7 @@ rbgroles.add(rdbrecepcionista);
             DefaultTableModel modelo = new DefaultTableModel();
     modelo.addColumn("ID");
     modelo.addColumn("Usuario");
-    modelo.addColumn("Contraseña");  // Solo se mostrará como "********"
+    modelo.addColumn("Contraseña"); 
     modelo.addColumn("Rol");
 
     ConexionBD conexionBD = new ConexionBD();
@@ -42,14 +42,14 @@ rbgroles.add(rdbrecepcionista);
 
         if (con != null) {
             try {
-                String sql = "SELECT id, username, rol FROM usuarios"; // 🔥 NO seleccionamos password_hash
+                String sql = "SELECT id, username, rol FROM usuarios"; //   seleccionamos password_hash
                 try (PreparedStatement pst = con.prepareStatement(sql); 
                      ResultSet rs = pst.executeQuery()) {
                     while (rs.next()) {
                         Object[] fila = {
                             rs.getInt("id"),
                             rs.getString("username"),
-                            "********",  // 🔒 No mostramos la contraseña real
+                            "********",  //  No mostramos la contraseña real
                             rs.getString("rol")
                         };
                         modelo.addRow(fila);
@@ -60,7 +60,7 @@ rbgroles.add(rdbrecepcionista);
                 System.out.println("Error al cargar usuarios: " + e.getMessage());
             }
         } else {
-            System.out.println("Error: la conexión es NULL.");
+            System.out.println("Error: la conexion es NULL.");
         }
     } else {
         System.out.println("No se pudo conectar a la base de datos.");
@@ -323,7 +323,7 @@ rbgroles.add(rdbrecepcionista);
     // Validar que se haya seleccionado un rol
     if (!rdbadmin.isSelected() && !rdbrecepcionista.isSelected()) {
         JOptionPane.showMessageDialog(this, "Debe seleccionar un rol.", "Error", JOptionPane.ERROR_MESSAGE);
-        return; // Detener la ejecución si no hay selección
+        return; // Detener la ejecucion si no hay seleccion
     }
 
     String rol = rdbadmin.isSelected() ? "admin" : "recepcionista";
@@ -340,9 +340,9 @@ rbgroles.add(rdbrecepcionista);
     // Conectar a la base de datos
     ConexionBD conexionBD = new ConexionBD();
     if (conexionBD.conectar()) {  // Conectamos a la BD
-        Connection con = conexionBD.getConexion(); // Obtenemos la conexión
+        Connection con = conexionBD.getConexion(); // Obtenemos la conexion
 
-        if (con != null) {  // Verificamos que la conexión no sea null
+        if (con != null) {  // Verificamos que la conexion no sea null
             try {
                 // Consulta para insertar el nuevo usuario
                 String sql = "INSERT INTO usuarios (username, password_hash, rol) VALUES (?, ?, ?)";
@@ -353,7 +353,7 @@ rbgroles.add(rdbrecepcionista);
 
                     int filasAfectadas = pst.executeUpdate();  // Ejecutar la consulta
                     if (filasAfectadas > 0) {
-                        JOptionPane.showMessageDialog(this, "Usuario agregado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Usuario agregado con exito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                     } else {
                         JOptionPane.showMessageDialog(this, "Error al agregar el usuario.", "Error", JOptionPane.ERROR_MESSAGE);
                     }
@@ -364,7 +364,7 @@ rbgroles.add(rdbrecepcionista);
                 conexionBD.cerrarConexion();  // Cerramos la conexión
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Error: la conexión es NULL.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error: la conexion es NULL.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     } else {
         JOptionPane.showMessageDialog(this, "No se pudo conectar a la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -380,7 +380,7 @@ String busqueda = txtbuscar.getText().trim();  // Obtener el valor de búsqueda
 
     if (busqueda.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Por favor ingrese un valor para buscar.", "Error", JOptionPane.ERROR_MESSAGE);
-        return;  // Detener si el campo está vacío
+        return;  // Detener si el campo esta vacío
     }
 
     // Conectar a la base de datos
@@ -393,8 +393,8 @@ String busqueda = txtbuscar.getText().trim();  // Obtener el valor de búsqueda
                 String sql = "";
                 PreparedStatement pst = null;
                 
-                // Determinar si la búsqueda es por ID, usuario o rol
-                if (busqueda.matches("\\d+")) {  // Si la búsqueda es un número, se busca por ID
+                // Determinar si la busqueda es por ID, usuario o rol
+                if (busqueda.matches("\\d+")) {  // Si la busqueda es un numero, se busca por ID
                     sql = "SELECT id, username, rol FROM usuarios WHERE id = ?";
                     pst = con.prepareStatement(sql);
                     pst.setInt(1, Integer.parseInt(busqueda));  // Establecer el ID
@@ -423,7 +423,7 @@ String busqueda = txtbuscar.getText().trim();  // Obtener el valor de búsqueda
                         }
 
                         if (modelo.getRowCount() == 0) {
-                            JOptionPane.showMessageDialog(this, "No se encontró el usuario.", "Resultado de búsqueda", JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.showMessageDialog(this, "No se encontro el usuario.", "Resultado de búsqueda", JOptionPane.INFORMATION_MESSAGE);
                         }
                     }
                 }
@@ -436,7 +436,7 @@ String busqueda = txtbuscar.getText().trim();  // Obtener el valor de búsqueda
             JOptionPane.showMessageDialog(this, "No se pudo conectar a la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     } else {
-        JOptionPane.showMessageDialog(this, "Error: la conexión es NULL.", "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Error: la conexion es NULL.", "Error", JOptionPane.ERROR_MESSAGE);
     }
     }//GEN-LAST:event_bttbuscarActionPerformed
 
@@ -446,7 +446,7 @@ String busqueda = txtbuscar.getText().trim();  // Obtener el valor de búsqueda
     int filaSeleccionada = TablaUsuarios.getSelectedRow();
 
     if (filaSeleccionada == -1) {
-        // Si no se selecciona ninguna fila, mostrar un mensaje de error
+        // Si no se selecciona ninguna fila mostrar un mensaje de error
         JOptionPane.showMessageDialog(this, "Por favor, selecciona un usuario para editar.", "Error", JOptionPane.ERROR_MESSAGE);
         return; // No continuar si no hay fila seleccionada
     }
@@ -469,7 +469,7 @@ String busqueda = txtbuscar.getText().trim();  // Obtener el valor de búsqueda
         return;
     }
 
-    // Si la contraseña ha cambiado, verificar que las contraseñas coincidan
+    // Si la contraseña ha cambiado verifica que las contraseñas coincidan
     if (!nuevaContraseña.isEmpty()) {
         if (!nuevaContraseña.equals(repetirContraseña)) {
             JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -479,7 +479,7 @@ String busqueda = txtbuscar.getText().trim();  // Obtener el valor de búsqueda
         // Encriptar la nueva contraseña con BCrypt
         nuevaContraseña = BCrypt.hashpw(nuevaContraseña, BCrypt.gensalt());
     } else {
-        // Si no se cambia la contraseña, usar la contraseña actual
+        // Si no se cambia la contraseña usar la contraseña actual
         nuevaContraseña = contrasenaUsuario;
     }
 
@@ -532,8 +532,8 @@ String busqueda = txtbuscar.getText().trim();  // Obtener el valor de búsqueda
         txtusuario.setText(nombreUsuario);  // Mostrar el nombre de usuario
 
         // Limpiar los campos de contraseña (no podemos mostrar la contraseña en texto claro)
-        txtcontrasena.setText("");  // Dejar vacío para que el usuario ingrese una nueva contraseña
-        txtrepetircontraseña.setText("");  // Dejar vacío también
+        txtcontrasena.setText("");  // Dejar vacio para que el usuario ingrese una nueva contraseña
+        txtrepetircontraseña.setText("");  // Dejar vacio también
 
         // Seleccionar el rol
         if (rolUsuario.equals("admin")) {
